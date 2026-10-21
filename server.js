@@ -4,14 +4,12 @@ import * as cheerio from 'cheerio';
 const app = express();
 app.disable('x-powered-by');
 const PORT = Number(process.env.PORT || 3000);
-const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || 'https://4shockauth.shop';
 
 app.use((req, res, next) => {
   res.setHeader('X-Content-Type-Options', 'nosniff');
-  if (req.headers.origin === ALLOWED_ORIGIN) {
-    res.setHeader('Access-Control-Allow-Origin', ALLOWED_ORIGIN);
-    res.setHeader('Vary', 'Origin');
-  }
+  // This is a public, read-only search endpoint with no cookies or credentials.
+  // A wildcard lets the hosted site and downloaded file:// HTML use it.
+  res.setHeader('Access-Control-Allow-Origin', '*');
   next();
 });
 
