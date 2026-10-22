@@ -143,10 +143,12 @@ async function visit(inputUrl, extract) {
 
     const page = await context.newPage();
 
-    await page.goto(url, {
-      waitUntil: 'domcontentloaded',
-      timeout: 12000
-    });
+    
+await page.goto(url, {
+  waitUntil: 'commit',
+  timeout: 15000
+});
+
 
     return await extract(page);
   } finally {
